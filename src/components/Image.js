@@ -4,26 +4,47 @@ import { Context } from "../Context";
 
 function Photos({ className, img }) {
   const [hovered, sethovered] = useState(false);
-  const { toggleFavorite } = useContext(Context);
+  const { toggleFavorite, addToCart, cartItems } = useContext(Context);
 
   function heartIcon() {
     if (img.isFavorite) {
       return (
         <i
           className="ri-heart-fill favorite"
-          onClick={() => toggleFavorite()}
+          onClick={() => toggleFavorite(img.id)}
         ></i>
       );
     } else if (hovered) {
       return (
         <i
           className="ri-heart-line favorite"
-          onClick={() => toggleFavorite()}
+          onClick={() => toggleFavorite(img.id)}
         ></i>
       );
     }
   }
-  const cartIcon = hovered && <i className="ri-add-circle-line cart"></i>;
+  function cartIcon() {
+    const alreadyInCart = cartItems.some((item) => item.id === img.id);
+    if (alreadyInCart) {
+      return (
+        <i
+          className="ri-add-circle-fill cart"
+          // onClick={() => addToCart(img)}
+        ></i>
+      );
+    } else if (hovered) {
+      return (
+        <i
+          className="ri-add-circle-line cart"
+          onClick={() => addToCart(img)}
+        ></i>
+      );
+    }
+  }
+
+  // const cartIcon = hovered && (
+  //   <i className="ri-add-circle-line cart" onClick={() => addToCart(img)}></i>
+  // );
 
   return (
     <div
@@ -33,7 +54,7 @@ function Photos({ className, img }) {
     >
       <img className="image-grid" src={img.url} alt={img.id} />
       {heartIcon()}
-      {cartIcon}
+      {cartIcon()}
     </div>
   );
 }
