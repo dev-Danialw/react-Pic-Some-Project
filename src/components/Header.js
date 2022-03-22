@@ -1,6 +1,6 @@
-import React, { useContext } from "react";
+// import React, { useContext } from "react";
 import { Link } from "react-router-dom";
-import { CartContext } from "../CartContext";
+// import { CartContext } from "../CartContext";
 
 function Header() {
   return (
@@ -9,7 +9,9 @@ function Header() {
         <Link to="/">Pic Some</Link>
       </h2>
 
-      <i className={"ri-shopping-cart-line ri-fw ri-2x"}></i>
+      <Link to="/cart">
+        <i className={"ri-shopping-cart-line ri-fw ri-2x"}></i>
+      </Link>
     </header>
   );
 }
